@@ -1,7 +1,5 @@
 import unittest
 
-
-
 def URLify(string, length):
 
     string = string.rstrip()    
