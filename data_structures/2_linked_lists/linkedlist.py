@@ -2,10 +2,18 @@ from random import randint
 
 class Node:
 
-    def __init__(self, data, next_node=None, prev_node=None):
+    def __init__(self, data, next_node=None):
         self.data = data
         self.next = next_node
-        self.prev = prev_node
+        # self.prev = prev_node
+    
+    def __eq__(self, other):
+        if not isinstance(other, Node):
+            return False
+        return self.data == other.data and self.next == other.next
+
+    def __hash__(self):
+        return hash((self.data, self.next))
     
 
 class LinkedList:
@@ -59,6 +67,7 @@ class LinkedList:
                 self.append(elem)
             else:
                 self.head = Node(elem)
+        self.print_list()
     
     def generate(self, n, min_value, max_value):
         self.head = None
