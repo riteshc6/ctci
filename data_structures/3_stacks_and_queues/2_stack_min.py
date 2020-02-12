@@ -6,27 +6,31 @@ class Node:
 class Stack:
     def __init__(self):
         self.top = None
-        self.min = None
+        self.state_min = []
+        # self.cur_state = None
     
     def __str__(self):
         cur = self.top
         string = ""
-        while cur:
-            string += str(cur.data) + " -> "
-            cur = cur.next
-        string += f"====== min -> {self.min}" 
+        if self.top:
+            while cur:
+                string += str(cur.data) + " -> "
+                cur = cur.next
+            string += f"====== min -> {self.min()}" 
         return string
 
     def push(self, data):
         node = Node(data)
         if not self.top:
             self.top = node
-            self.min = data
+            self.cur_state = 0
+            self.state_min.append(data)
         else:
             node.next = self.top
             self.top = node
-            if data < self.min:
-                self.min = data
+            self.cur_state += 1
+            if data < self.state_min[- 1]:
+                self.state_min.append(data)
     
     def pop(self):
         if not self.top:
@@ -35,22 +39,14 @@ class Stack:
         data = self.top.data
         self.top = self.top.next
         
-        if data == self.min:
-            self.update_min()
+        if data == self.state_min[-1]:
+            self.state_min.pop(-1)
         
         return data
     
-    def min_(self):
-        return self.min
-    
-    def update_min(self):
-        self.min = self.top.data
-        cur = self.top
+    def min(self):
+        return self.state_min[-1]
 
-        while cur:
-            if cur.data < self.min:
-                self.min = cur.data
-            cur = cur.next
 
 stack = Stack()
 stack.push(4)
@@ -71,4 +67,7 @@ stack.pop()
 print(stack)
 stack.pop()
 print(stack)
+stack.pop()
+print(stack)
+
 
