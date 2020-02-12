@@ -1,51 +1,76 @@
+class Stack:
+
+    def __init__(self, threesold):
+        self.threesold = threesold
+        self.values = []
+        self.length = 0
+
+    def is_full(self):
+        return self.threesold == self.length
+    
+    def is_empty(self):
+        return not self.length
+    
+    def push(self, data):
+        if self.is_full():
+            raise Exception("Stack is full")
+
+        self.values.append(data)
+        self.length += 1
+    
+    def pop(self):
+        if self.is_empty():
+            raise Exception("Stack is Empty")
+        data = self.values.pop(-1)
+        self.length -= 1
+        return data
+
+
 class SetOfStacks:
 
     def __init__(self, threesold):
-        self.values = []
-        self.stacks_size = []
+        self.stacks = []
         self.threesold = threesold
     
     def __str__(self):
-        return f"Data -> {self.values}, stacks -> {self.stacks_size}"
+        string = str(len(self.stacks))
+        for idx, stack in enumerate(self.stacks):
+            string += f" = {idx} -> {stack.values},"
+        return string
     
     def push(self, data):
-        self.values.append(data)
         if self.is_empty():
-            self.stacks_size.append(1)
+            stack = Stack(self.threesold)
+            stack.push(data)
+            self.stacks.append(stack)
         else:
-            if self.is_stack_full():
-                self.stacks_size.append(1)
+            stack = self.stacks[-1]
+            if stack.is_full():
+                stack = Stack(self.threesold)
+                stack.push(data)
+                self.stacks.append(stack)
             else:
-                self.stacks_size[-1] += 1
+                stack.push(data)
 
     def pop(self):
         if self.is_empty():
             raise Exception("Stack is empty")
-        data = self.values.pop(-1)
-        self.update_stacks_size()
+        stack = self.stacks[-1]
+        data = stack.pop()
+        if stack.is_empty():
+            self.stacks.pop(-1)
         return data
-    
-    def update_stacks_size(self):
-        if self.stacks_size[-1] == 1:
-            self.stacks_size.pop(-1)
-        else:
-            self.stacks_size[-1] -= 1
 
     def is_empty(self):
-        return not len(self.stacks_size)
-    
-    def is_stack_full(self):
-        return self.stacks_size[-1] == self.threesold
+        return not self.stacks
+
 
     def popAt(self, stack_index):
-        values_index = self.get_data_index(stack_index)
-        data = self.values.pop(values_index)
-        self.update_stacks_size()
+        stack = self.stacks[stack_index]
+        data = stack.pop()
+        if stack.is_empty():
+            self.stacks.pop(stack_index)
         return data
-    
-    def get_data_index(self, stack_index):
-        offset = (stack_index * self.threesold) - 1
-        return offset + self.stacks_size[stack_index]
 
 
 stacks = SetOfStacks(3)
