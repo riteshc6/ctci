@@ -23,7 +23,7 @@ class MyQueue:
     def push(self, data):
         self.s1.push(data)
     
-    def pop(self):
+    def remove(self):
         if self.s2.is_empty():
             self.reverse_stack()
         data = self.s2.pop()
@@ -47,17 +47,17 @@ for value in values:
     queue.push(value)
 print(queue)
 
-queue.pop()
+queue.remove()
 print(queue)
-queue.pop()
+queue.remove()
 print(queue)
 queue.push(8)
 print(queue)
 queue.push(10)
 print(queue)
-queue.pop()
+queue.remove()
 print(queue)
-queue.pop()
+queue.remove()
 print(queue)
 queue.peek()
 print(queue)

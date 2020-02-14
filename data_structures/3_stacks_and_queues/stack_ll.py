@@ -10,6 +10,14 @@ class Stack:
     def __init__(self):
         self.top = None
     
+    def __str__(self):
+        cur = self.top
+        string = ""
+        while cur:
+            string += f"{cur.data} "
+            cur = cur.next
+        return string
+
     def push(self, data):
         node = Node(data)
         if self.top:
@@ -24,7 +32,7 @@ class Stack:
             top.next = None
             return data
         else:
-            return None
+            raise Exception("Stack is Empty")
 
 
     def peek(self):
@@ -35,10 +43,10 @@ class Stack:
         return self.top == None
 
     
-
-data = [1,2,3,4]
-stack = Stack()
-for elem in data:
-    stack.push(elem)
-while not stack.is_empty():
-    print(stack.pop())
+if __name__ == "__main__":
+    data = [1,2,3,4]
+    stack = Stack()
+    for elem in data:
+        stack.push(elem)
+    while not stack.is_empty():
+        print(stack.pop())
