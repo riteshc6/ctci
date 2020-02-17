@@ -11,6 +11,9 @@ class Node:
 
 
 def in_order_traversal(tree):
+    """
+        Traversal order => left -> current -> right
+    """
     node = tree
     if node:
         in_order_traversal(node.left)
@@ -18,6 +21,9 @@ def in_order_traversal(tree):
         in_order_traversal(node.right)
 
 def pre_order_traversal(tree):
+    """
+        Traversal order => current -> left -> right
+    """
     node = tree
     if node:
         print(node.data, end=" ")
@@ -25,6 +31,9 @@ def pre_order_traversal(tree):
         pre_order_traversal(node.right)
 
 def post_order_traversal(tree):
+    """
+        Traversal order => left -> right -> current
+    """
     node = tree
     if node:
         post_order_traversal(node.left)
@@ -39,6 +48,7 @@ tree.left.left = Node(2)
 tree.left.right = Node(6)
 tree.right.right = Node(20)
 tree.right.left = Node(14)
+tree.left.right.left = Node(5)
 
 in_order_traversal(tree)
 print()
