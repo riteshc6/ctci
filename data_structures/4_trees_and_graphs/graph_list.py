@@ -1,23 +1,72 @@
 """
-    Basic gragh implementation using adjacency lists
+    Basic graph implementation using adjacency lists
 """
 
-class Graph:
-    def __init__(self, num_vertex):
-        self.vertexes = {i:[] for i in range(num_vertex)}
-
-    def add_edge(self, from_vertex, to_vertex):
-        self.vertexes[from_vertex].append(to_vertex)
+class Node:
+    def __init__(self,name):
+        self.name = name
+        self.children = []
+        self.visited = False
+    
+    def add_child(self, child):
+        if isinstance(child, Node):
+            # for c in self.children:
+                # if child == c:
+                #     return "Child already added to children"
+            self.children.append(child)
+        else:
+            raise Exception("Child doesn't belongs to node instance")
+    
 
     def __str__(self):
-        return str(self.vertexes)
+        string = f"{self.name} -> "
+        for child in self.children:
+            string += f"{child.name} "
+        return string
 
 
+class Graph:
+    def __init__(self):
+        self.nodes = []
+        # self.visited 
 
-graph = Graph(4)
-graph.add_edge(0, 1)
-graph.add_edge(1, 2)
-graph.add_edge(2, 0)
-graph.add_edge(3,2)
-graph.add_edge(3, 0)
+    def add_node(self, node):
+        self.nodes.append(node)
+
+    def  __str__(self):
+        return str([str(node) for node in self.nodes])
+    
+    def dfs(self, root):
+        print(root.name)
+        root.visited = True
+        for child in root.children:
+            if not child.visited:
+                self.dfs(child)
+
+    
+
+
+graph = Graph()
+node0 = Node("0")
+node1 = Node("1")
+node2 = Node("2")
+node3 = Node("3")
+node4 = Node("4")
+node5 = Node("5")
+node0.add_child(node1)
+node0.add_child(node4)
+node0.add_child(node5)
+node1.add_child(node3)
+node1.add_child(node4)
+node2.add_child(node1)
+node3.add_child(node2)
+node3.add_child(node4)
+graph.add_node(node0)
+graph.add_node(node1)
+graph.add_node(node2)
+graph.add_node(node3)
+graph.add_node(node4)
+graph.add_node(node5)
 print(graph)
+graph.dfs(node0)
+
