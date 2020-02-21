@@ -2,6 +2,8 @@
     Basic graph implementation using adjacency lists
 """
 
+from collections import deque
+
 class Node:
     def __init__(self,name):
         self.name = name
@@ -37,11 +39,31 @@ class Graph:
         return str([str(node) for node in self.nodes])
     
     def dfs(self, root):
+        """
+            Depth First Search
+        """
         print(root.name)
         root.visited = True
         for child in root.children:
             if not child.visited:
                 self.dfs(child)
+    
+    def bfs(self, root):
+        """
+            Breadth first search using queue
+        """
+        queue = deque()
+        root.visited = True
+        queue.append(root)
+        while len(queue):
+            # Visit nodes in queue
+            node = queue.popleft()
+            print(node.name)
+            # Put children which are not visited inside queue
+            for child in node.children:
+                if not child.visited:
+                    child.visited = True
+                    queue.append(child)
 
     
 
@@ -68,5 +90,6 @@ graph.add_node(node3)
 graph.add_node(node4)
 graph.add_node(node5)
 print(graph)
-graph.dfs(node0)
+# graph.dfs(node0)
+graph.bfs(node0)
 
