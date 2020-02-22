@@ -10,11 +10,19 @@ class Node:
         self.children = []
         self.visited = False
     
+    def __eq__(self, other):
+        if not isinstance(other, Node):
+            return False
+        return self.name == other.name and self.children == other.children
+
+    def __hash__(self):
+        return hash((self.name))
+    
     def add_child(self, child):
         if isinstance(child, Node):
-            # for c in self.children:
-                # if child == c:
-                #     return "Child already added to children"
+            for c in self.children:
+                if child == c:
+                    raise Exception("Child already exists")
             self.children.append(child)
         else:
             raise Exception("Child doesn't belongs to node instance")
@@ -91,5 +99,4 @@ graph.add_node(node4)
 graph.add_node(node5)
 print(graph)
 # graph.dfs(node0)
-graph.bfs(node0)
-
+# graph.bfs(node0)
