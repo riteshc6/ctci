@@ -26,12 +26,6 @@ class Node:
                         node.right = new_node
                         break
 
-    def in_order_traversal(self, node):
-        if node:
-            self.in_order_traversal(node.left)
-            print(node.data, end=" ")
-            self.in_order_traversal(node.right)
-
     def is_empty(self):
         return self.data == None
 
@@ -45,15 +39,22 @@ class Node:
             node = node.left if value <= node.data else node.right
         return False
 
+def in_order_traversal(node):
+    if node:
+        in_order_traversal(node.left)
+        print(node.data, end=" ")
+        in_order_traversal(node.right)
 
-tree = Node()
-values = [8, 4, 10, 2, 6, 20]
-for value in values:
-    tree.insert(value)
 
-tree.in_order_traversal(node=tree)
-print()
-print(tree.search(9))
+if __name__ == "__main__":
+    tree = Node()
+    values = [8, 4, 10, 2, 6, 20]
+    for value in values:
+        tree.insert(value)
+
+    in_order_traversal(tree)
+    print()
+    print(tree.search(4))
 
 
 
