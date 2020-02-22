@@ -8,7 +8,6 @@ class Node:
     def __init__(self,name):
         self.name = name
         self.children = []
-        self.visited = False
     
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -38,7 +37,6 @@ class Node:
 class Graph:
     def __init__(self):
         self.nodes = []
-        # self.visited 
 
     def add_node(self, node):
         self.nodes.append(node)
@@ -61,7 +59,8 @@ class Graph:
             Breadth first search using queue
         """
         queue = deque()
-        root.visited = True
+        visited = set()
+        visited.add(root)
         queue.append(root)
         while len(queue):
             # Visit nodes in queue
@@ -69,8 +68,8 @@ class Graph:
             print(node.name)
             # Put children which are not visited inside queue
             for child in node.children:
-                if not child.visited:
-                    child.visited = True
+                if child not in visited:
+                    visited.add(child)
                     queue.append(child)
 
     
@@ -99,4 +98,4 @@ graph.add_node(node4)
 graph.add_node(node5)
 print(graph)
 # graph.dfs(node0)
-# graph.bfs(node0)
+graph.bfs(node0)
