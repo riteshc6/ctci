@@ -8,16 +8,17 @@ def route_bet_nodes(node1, node2):
     """
     queue = deque()
     queue.append(node1)
-    node1.visited = True
+    visited = set()
+    visited.add(node1)
 
     while len(queue):
         node = queue.popleft()
-        if node == node2:
-            return True
         for child in node.children:
-            if not child.visited:
+            if child not in visited:
+                if child == node2:
+                    return True
                 queue.append(child)
-                child.visited = True
+                visited.add(child)
     return False
 
 
@@ -44,4 +45,4 @@ graph.add_node(node3)
 graph.add_node(node4)
 graph.add_node(node5)
 
-print(route_bet_nodes(node1, node5))
+print(route_bet_nodes(node0, node3))
