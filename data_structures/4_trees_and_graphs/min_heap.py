@@ -1,11 +1,12 @@
 """
     Minimum Heap Binary Tree Implementation
+    Refer https://www.cs.cmu.edu/~tcortina/15-121sp10/Unit06B.pdf for understanding min heap concept
 """
 
 
 class MinHeap:
     def __init__(self):
-        self.data = [None]
+        self.data = [None]  # First element is not used in heap
     
     def __str__(self):
         return str(self.data)

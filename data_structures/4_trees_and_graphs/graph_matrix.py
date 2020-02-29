@@ -9,7 +9,7 @@ class Graph:
         self.edges = [[0]* vertex_num for _ in range(vertex_num)]
     
     def add_directed_edge(self, from_vertex, to_vertex):
-        if from_vertex < self.vertex_num:
+        if from_vertex < self.vertex_num and to_vertex < self.vertex_num:
             self.edges[from_vertex][to_vertex] = 1
         else:
             raise Exception("Vertex not present in graph")
