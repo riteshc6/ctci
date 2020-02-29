@@ -37,6 +37,7 @@ class Node:
 class Graph:
     def __init__(self):
         self.nodes = []
+        self.visited = set()
 
     def add_node(self, node):
         self.nodes.append(node)
@@ -49,9 +50,9 @@ class Graph:
             Depth First Search
         """
         print(root.name)
-        root.visited = True
+        self.visited.add(root)
         for child in root.children:
-            if not child.visited:
+            if child not in self.visited:
                 self.dfs(child)
     
     def bfs(self, root):
@@ -97,5 +98,6 @@ graph.add_node(node3)
 graph.add_node(node4)
 graph.add_node(node5)
 print(graph)
-# graph.dfs(node0)
+graph.dfs(node0)
+print()
 graph.bfs(node0)
