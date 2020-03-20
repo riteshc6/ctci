@@ -51,6 +51,19 @@ def insert_r(root, data):
     else:
         root.right = insert_r(root.right, data)
     return root
+
+def search_r(root, value):
+    """
+        Recursive method to search bst
+    """
+    if not root:
+        return False
+    elif root.data == value:
+        return True
+    elif value < root.data:
+        return search_r(root.left, value)
+    else:
+        return search_r(root.right, value)
     
 def in_order_traversal(node):
     if node:
@@ -66,6 +79,7 @@ if __name__ == "__main__":
         tree.insert(value)
     in_order_traversal(tree)
     print()
+    print(tree.search(6))
     tree_r = None
     tree_r = insert_r(tree_r, 5)
     insert_r(tree_r, 4)
@@ -77,7 +91,8 @@ if __name__ == "__main__":
     insert_r(tree_r, 1)
     in_order_traversal(tree_r)
     print()
-    # print(tree.search(4))
+    print(search_r(tree_r, 2))
+    print(search_r(tree, 11))
 
 
 
