@@ -25,7 +25,8 @@ class Node:
                     else:
                         node.right = new_node
                         break
-
+        
+    
     def is_empty(self):
         return self.data == None
 
@@ -39,6 +40,18 @@ class Node:
             node = node.left if value <= node.data else node.right
         return False
 
+def insert_r(root, data):
+    """
+        Recursive method to insert in bst
+    """
+    if not root:
+        root = Node(data)
+    elif data <= root.data:
+        root.left = insert_r(root.left, data)
+    else:
+        root.right = insert_r(root.right, data)
+    return root
+    
 def in_order_traversal(node):
     if node:
         in_order_traversal(node.left)
@@ -48,13 +61,23 @@ def in_order_traversal(node):
 
 if __name__ == "__main__":
     tree = Node()
-    values = [8, 4, 10, 2, 6, 20]
+    values = [4, 10, 2, 6, 20]
     for value in values:
         tree.insert(value)
-
     in_order_traversal(tree)
     print()
-    print(tree.search(4))
+    tree_r = None
+    tree_r = insert_r(tree_r, 5)
+    insert_r(tree_r, 4)
+    insert_r(tree_r, 10)
+    insert_r(tree_r, 2)
+    insert_r(tree_r, 6)
+    insert_r(tree_r, 11)
+    insert_r(tree_r, 3)
+    insert_r(tree_r, 1)
+    in_order_traversal(tree_r)
+    print()
+    # print(tree.search(4))
 
 
 
