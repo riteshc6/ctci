@@ -81,6 +81,11 @@ def find_max(root):
     else:
         return find_max(root.right)
 
+def find_height(root):
+    if not root:
+        return -1
+    return max(find_height(root.left), find_height(root.right)) + 1
+
 def in_order_traversal(node):
     if node:
         in_order_traversal(node.left)
@@ -108,7 +113,8 @@ if __name__ == "__main__":
     print()
     print(search_r(tree_r, 2))
     print(search_r(tree, 11))
-    print(find_min(tree_r))
-    print(find_max(tree_r))
+    print("Minimum Element",find_min(tree_r))
+    print("Maximum Element",find_max(tree_r))
+    print("Height: ",find_height(tree_r))
 
 
