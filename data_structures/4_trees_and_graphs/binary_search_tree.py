@@ -1,3 +1,4 @@
+from collections import deque
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -66,6 +67,9 @@ def search_r(root, value):
         return search_r(root.right, value)
 
 def find_min(root):
+    """
+        Find minimum element in a tree
+    """
     if not root:
         raise Exception("Empty Tree")
     if not root.left:
@@ -74,6 +78,9 @@ def find_min(root):
         return find_min(root.left)
 
 def find_max(root):
+    """
+        Find maximum element in a tree
+    """
     if not root:
         raise Exception("Empty tree")
     if not root.right:
@@ -82,9 +89,29 @@ def find_max(root):
         return find_max(root.right)
 
 def find_height(root):
+    """
+        Find height of a tree
+    """
     if not root:
         return -1
     return max(find_height(root.left), find_height(root.right)) + 1
+
+def level_order_traversal(root):
+    """
+        Level order Traversal of a tree
+    """
+    if not root:
+        raise Exception("Empty Tree")
+    queue = deque()
+    queue.append(root)
+    print("Level Order Traversal: ", end=" ")
+    while len(queue):
+        node = queue.popleft()
+        print(node.data, end=" ")
+        if node.left: queue.append(node.left)
+        if node.right: queue.append(node.right)
+    print()
+
 
 def in_order_traversal(node):
     if node:
@@ -116,5 +143,5 @@ if __name__ == "__main__":
     print("Minimum Element",find_min(tree_r))
     print("Maximum Element",find_max(tree_r))
     print("Height: ",find_height(tree_r))
-
+    level_order_traversal(tree_r)
 
