@@ -72,7 +72,15 @@ def find_min(root):
         return root.data
     else:
         return find_min(root.left)
-    
+
+def find_max(root):
+    if not root:
+        raise Exception("Empty tree")
+    if not root.right:
+        return root.data
+    else:
+        return find_max(root.right)
+
 def in_order_traversal(node):
     if node:
         in_order_traversal(node.left)
@@ -101,5 +109,6 @@ if __name__ == "__main__":
     print(search_r(tree_r, 2))
     print(search_r(tree, 11))
     print(find_min(tree_r))
+    print(find_max(tree_r))
 
 
