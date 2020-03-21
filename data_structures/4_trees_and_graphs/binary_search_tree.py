@@ -64,6 +64,14 @@ def search_r(root, value):
         return search_r(root.left, value)
     else:
         return search_r(root.right, value)
+
+def find_min(root):
+    if not root:
+        raise Exception("Empty Tree")
+    if not root.left:
+        return root.data
+    else:
+        return find_min(root.left)
     
 def in_order_traversal(node):
     if node:
@@ -79,7 +87,6 @@ if __name__ == "__main__":
         tree.insert(value)
     in_order_traversal(tree)
     print()
-    print(tree.search(6))
     tree_r = None
     tree_r = insert_r(tree_r, 5)
     insert_r(tree_r, 4)
@@ -93,6 +100,6 @@ if __name__ == "__main__":
     print()
     print(search_r(tree_r, 2))
     print(search_r(tree, 11))
-
+    print(find_min(tree_r))
 
 
