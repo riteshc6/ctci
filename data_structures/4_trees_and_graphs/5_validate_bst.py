@@ -1,5 +1,6 @@
 from binary_search_tree import Node
 from binary_tree import Node as b_node
+import sys
 
 def is_bst(tree: object) -> bool:
     """
@@ -37,7 +38,7 @@ def is_correct_bst(tree):
     """
         Completely checks if all of left_nodes < node < all of right_nodes
     """
-    return check_bst(tree, None, None)
+    return check_bst(tree,float('-inf'), float('inf'))
 
 def check_bst(node, min_, max_):
     """
@@ -46,13 +47,11 @@ def check_bst(node, min_, max_):
     if not node:
         return True
     
-    if min_:
-        if node.data <= min_:
-            return False        
+    if node.data <= min_:
+        return False        
     
-    if max_:
-        if node.data > max_:
-            return False
+    if node.data > max_:
+        return False
     
     if (not check_bst(node.left, min_, node.data)) or (not check_bst(node.right, node.data, max_)):
         return False

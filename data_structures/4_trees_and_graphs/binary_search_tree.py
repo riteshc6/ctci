@@ -114,6 +114,9 @@ def level_order_traversal(root):
 
 
 def in_order_traversal(node):
+    """
+        NOTE: Space complexity = O(h); h is height of bst
+    """
     if node:
         in_order_traversal(node.left)
         print(node.data, end=" ")
