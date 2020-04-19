@@ -1,3 +1,4 @@
+import unittest
 
 def get_mask_of_1s(j, i):
     """
@@ -20,11 +21,22 @@ def insertion(N, M, j, i):
     N = N & mask
 
     M = M << i
+    print(bin(N | M))
     return N | M
 
 
-N = 0b10000000000
-M = 0b1011
-i = 2; j = 6
+class test_insertion(unittest.TestCase):
 
-print(bin(insertion(N, M, j, i)))   
+    data = [
+        (0b10000000000, 0b10011, 6, 2, 0b10001001100),
+        (0b10000000000, 0b10011, 4, 0, 0b10000010011),
+        (0b10000000000, 0b10011, 10, 6, 0b10011000000)
+    ]
+
+    def test_insertion(self):
+        for N, M, j, i, expected in self.data:
+            actual = insertion(N, M, j, i)
+            self.assertEqual(expected, actual)
+
+if __name__ == "__main__":
+    unittest.main()
