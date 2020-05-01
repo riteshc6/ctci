@@ -123,6 +123,38 @@ def in_order_traversal(node):
         in_order_traversal(node.right)
 
 
+def delete(root, data):
+    """
+        Deleting a node from binary search tree
+    """
+
+    if not root.data: return None
+
+    if data < root.data:
+        root.left = delete(root.left, data)
+    
+    elif data > root.data:
+        root.right = delete(root.right, data)
+    
+    else:
+        # Case 1: No child
+        if not root.right and not root.left:
+            root = None
+        # Case 2: only left child
+        elif not root.right:
+            root = root.left
+        # Case 3: only right child
+        elif not root.left:
+            root = root.right
+        # Case 4: both right and left children are present
+        else:
+            min_val = find_min(root.right)  # find min value in right subtree
+            root.data = min_val             # replace root with min value
+            root.right = delete(root.right, root.data)  # Delete min value in right subtree
+
+    return root
+    
+            
 if __name__ == "__main__":
     tree = Node()
     values = [4, 10, 2, 6, 20]
@@ -146,5 +178,7 @@ if __name__ == "__main__":
     print("Minimum Element",find_min(tree_r))
     print("Maximum Element",find_max(tree_r))
     print("Height: ",find_height(tree_r))
+    level_order_traversal(tree_r)
+    tree_r = delete(tree_r,  5)
     level_order_traversal(tree_r)
 
