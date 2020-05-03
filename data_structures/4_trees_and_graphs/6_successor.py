@@ -8,21 +8,28 @@ class Node:
         self.right = None
 
 def in_order_successor(tree_node):
+    """
+        For a given node return in-order successor
+    """
     if tree_node == None:
         return None
     
+    # if node has right child -> return left most child
     if tree_node.right:
         return left_most_child(tree_node.right)
     else:
         current = tree_node
         ancestor = tree_node.parent
-    
+        # Go up until we are on left of parent
         while ancestor and ancestor.left != current:
             current = ancestor
             ancestor = ancestor.parent
         return ancestor
 
 def left_most_child(n):
+    """
+        Return left most child of node
+    """
     if n == None:
         return None
     while n.left:
