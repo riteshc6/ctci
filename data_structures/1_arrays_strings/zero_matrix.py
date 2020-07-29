@@ -1,22 +1,21 @@
 import unittest
 
 def zero_matrix(matrix):
-    row = set()
     column = set()
     m = len(matrix); n = len(matrix[0])
-
-    for i in range(m):
-        for j in range(n):
+    i = 0; j = 0
+    while i < m:
+        while j < n:
             if matrix[i][j] == 0:
-                row.add(i)
+                matrix[i] = [0] * n
                 column.add(j)
-    for i in range(m):
-        if i in row:
-            matrix[i] = [0] * n
-            continue
-        for j in range(m):
-            if j in column:
+                j = 0; i += 1
+            elif j in column:
                 matrix[i][j] = 0
+                j += 1
+            else:
+                j += 1
+        j = 0; i += 1
     return matrix
 
 class Test(unittest.TestCase):
