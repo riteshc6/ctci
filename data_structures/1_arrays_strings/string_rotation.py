@@ -38,6 +38,16 @@ def string_rotation(s1, s2):
         return False
 
 
+def string_rotation_optimized(s1: str, s2: str):
+    s1_length = len(s1)
+    s2_length = len(s2)
+
+    if s1_length >= s2_length:
+        s1s2 = s1 + s1
+        return s2 in s1s2 
+    else:
+        return False    
+
 class Test(unittest.TestCase):
     data = [
         ('waterbottle', 'erbottlewat', True),
@@ -51,6 +61,9 @@ class Test(unittest.TestCase):
         for s1, s2, expected in self.data:
             actual = string_rotation(s1, s2)
             self.assertEqual(actual, expected)
+            actual = string_rotation_optimized(s1, s2)
+            self.assertEqual(actual, expected)
+
 
 
 if __name__ == '__main__':
